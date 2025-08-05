@@ -1,6 +1,15 @@
+# Core image/video processing
 opencv-python
+pillow
+
+# Face recognition (DeepFace only, no dlib)
 deepface
-face_recognition
+
+# Text-to-Speech (offline)
 pyttsx3
+
+# Speech-to-Text (offline Vosk, faster than Whisper for now)
 vosk
+
+# Reminder scheduling
 schedule
