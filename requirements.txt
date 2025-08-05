@@ -3,7 +3,7 @@ opencv-python
 pillow
 
 # Face recognition (DeepFace only, no dlib)
-deepface
+deepface --no-deps
 
 # Text-to-Speech (offline)
 pyttsx3
