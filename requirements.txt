@@ -1,0 +1,7 @@
+opencv-python
+deepface
+face_recognition
+pyttsx3
+vosk
+schedule
+tkinter  
