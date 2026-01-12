@@ -1,0 +1,591 @@
+.patient-view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+  overflow: hidden;
+}
+
+.webcam-feed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.view-switcher {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  gap: 0;
+  background: rgba(71, 85, 105, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 4px;
+  z-index: 100;
+}
+
+.view-btn {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.view-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.view-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* add focus-visible outlines for keyboard accessibility without altering layout */
+.view-btn:focus-visible,
+.sidebar-btn:focus-visible,
+.minimize-btn:focus-visible,
+.emergency-btn:focus-visible,
+.schedule-bubble:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+}
+
+/* Slightly stronger focus for primary actions */
+.view-btn.active:focus-visible,
+.emergency-btn:focus-visible {
+  outline-color: rgba(59, 130, 246, 0.9);
+}
+/* End accessibility enhancements */
+
+.sidebar {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 100;
+}
+
+.sidebar-btn {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-btn:nth-child(1) {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+}
+
+.sidebar-btn:nth-child(2) {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+}
+
+.sidebar-btn:nth-child(3) {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+}
+
+.sidebar-btn:nth-child(4) {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  box-shadow: 0 8px 16px rgba(249, 115, 22, 0.3);
+}
+
+.sidebar-btn:nth-child(5) {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  box-shadow: 0 8px 16px rgba(20, 184, 166, 0.3);
+}
+
+.sidebar-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.btn-tooltip {
+  position: absolute;
+  left: 100%;
+  margin-left: 16px;
+  background: rgba(15, 23, 42, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-btn:hover .btn-tooltip {
+  opacity: 1;
+}
+
+.main-content {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.greeting {
+  font-size: 32px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.date {
+  font-size: 14px;
+  color: rgba(203, 213, 225, 0.85);
+  margin: 4px 0;
+  font-weight: 400;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.time {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(96, 165, 250, 0.95);
+  margin: 2px 0 0 0;
+  text-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+}
+
+.status-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.status-text {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 8px 20px;
+  border-radius: 20px;
+}
+
+.status-text.live {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-text.listening {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.upcoming-schedule {
+  position: absolute;
+  top: 108px;
+  right: 24px;
+  width: 320px; /* was 380px */
+  background: rgba(30, 41, 59, 0.3);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px; /* was 24px */
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.schedule-header h3 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.minimize-btn {
+  background: none;
+  border: none;
+  color: #cbd5e1; /* brighter by default */
+  font-size: 22px; /* slightly larger */
+  cursor: pointer;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s;
+  line-height: 1;
+  border: 1px solid transparent; /* added */
+}
+.minimize-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.15); /* added */
+}
+
+.schedule-bubble {
+  position: absolute;
+  bottom: 48px; /* align on same horizontal line as emergency button */
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s;
+  color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.schedule-bubble:hover {
+  background: rgba(51, 65, 85, 0.6);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.schedule-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 260px; /* add max height */
+  overflow-y: auto; /* enable scrolling */
+}
+
+.schedule-item {
+  background: rgba(51, 65, 85, 0.4);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.schedule-time {
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.schedule-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schedule-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.schedule-title {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.emergency-btn {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  padding: 20px 64px;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+  transition: all 0.3s;
+  letter-spacing: 1px;
+}
+
+.emergency-btn:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 12px 32px rgba(239, 68, 68, 0.6);
+}
+
+.toast-bubble {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 120;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mini-window {
+  background: rgba(30, 41, 59, 0.38);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+.mini-window .mini-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  color: #e2e8f0;
+  font-weight: 700;
+  font-size: 14px;
+}
+.mini-window .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+.mini-window label {
+  display: block;
+  color: #cbd5e1;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.mini-window input[type="text"],
+.mini-window input[type="time"],
+.mini-window input[type="email"],
+.mini-window select {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mini-window input[type="text"]:focus,
+.mini-window input[type="time"]:focus,
+.mini-window input[type="email"]:focus,
+.mini-window select:focus {
+  border-color: rgba(59, 130, 246, 0.65);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+.mini-window .row {
+  display: flex;
+  gap: 12px;
+}
+.mini-window .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+.mini-window .btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.mini-window .btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+.mini-window .btn-ghost {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* add sleek styles for the mini reminder form */
+.mini-form {
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.mini-form label {
+  display: block;
+  color: #cbd5e1;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.mini-form input[type="text"],
+.mini-form input[type="time"],
+.mini-form input[type="email"],
+.mini-form select {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.mini-form input[type="text"]:focus,
+.mini-form input[type="time"]:focus,
+.mini-form input[type="email"]:focus,
+.mini-form select:focus {
+  border-color: rgba(59, 130, 246, 0.65);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.mini-form .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mini-form .btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mini-form .btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+
+/* Mood overlay styles (translucent rounded pill with left text and emoji row) */
+.mood-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  min-width: 420px;
+  max-width: 90vw;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 245, 240, 0.06),
+    rgba(255, 245, 240, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.6);
+  z-index: 160;
+  animation: moodFadeIn 260ms ease-out;
+}
+.mood-overlay::before {
+  content: "";
+  position: absolute;
+  inset: auto auto 0 auto;
+  height: 6px;
+  width: 90%;
+  left: 5%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.06)
+  );
+  border-radius: 12px;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+.mood-overlay .mood-text {
+  color: #d1d5db;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+}
+.mood-overlay .mood-emojis {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 6px;
+}
+.mood-emoji-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 34px;
+  line-height: 1;
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mood-emoji-btn span {
+  font-size: 34px;
+}
+.mood-emoji-btn:focus {
+  outline: 3px solid rgba(96, 165, 250, 0.18);
+  outline-offset: 4px;
+}
+@keyframes moodFadeIn {
+  from {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mini-form .btn-ghost {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

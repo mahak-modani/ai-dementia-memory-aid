@@ -1,0 +1,391 @@
+.alerts-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.alerts-header {
+  margin-bottom: 32px;
+}
+
+.alerts-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.alerts-header p {
+  font-size: 16px;
+  color: #64748b;
+}
+
+.alert-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.alert-stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.alert-stat-icon {
+  font-size: 32px;
+}
+
+.alert-stat-content {
+  flex: 1;
+}
+
+.alert-stat-label {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.alert-stat-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.alerts-content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.recent-alerts-section,
+.emergency-contacts-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.recent-alerts-section h2,
+.emergency-contacts-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-item {
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid;
+  position: relative;
+}
+
+.alert-item.high {
+  background: #fef2f2;
+  border-left-color: #ef4444;
+}
+
+.alert-item.medium {
+  background: #fef3c7;
+  border-left-color: #f59e0b;
+}
+
+.alert-item-header {
+  margin-bottom: 8px;
+}
+
+.alert-item-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.alert-icon {
+  font-size: 18px;
+}
+
+.alert-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.alert-badge.high {
+  background: #ef4444;
+  color: white;
+}
+
+.alert-badge.medium {
+  background: #f59e0b;
+  color: white;
+}
+
+/* status pill that overlays top-right of an alert card */
+.alert-status-pill {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.alert-status-pill.active {
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.08);
+}
+
+.alert-status-pill.acknowledged {
+  background: #fff7ed;
+  color: #f59e0b;
+}
+
+.alert-status-pill.resolved {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+/* styled resolve button */
+.alert-resolve-btn {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s ease-in-out;
+}
+
+.alert-resolve-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(2, 6, 23, 0.08);
+}
+
+/* align the pill and resolve button vertically by giving the right-actions an absolute column */
+.right-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* place the status pill so it aligns vertically with the resolve button (same x-axis) */
+.alert-status-pill {
+  position: absolute;
+  top: 50%;
+  right: 120px; /* tuned to visually align with button */
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* when alert is resolved, give the whole alert-item a light green background */
+.alert-item.resolved {
+  background: #ecfdf5 !important;
+  border-left-color: #10b981 !important;
+}
+
+/* stats row: make two wide cards that share space like reminders */
+.alert-stats-row {
+  display: flex;
+  gap: 16px;
+}
+
+.reminder-stat-card.wide {
+  flex: 1 1 0;
+  min-width: 220px;
+}
+
+.alert-description {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.alert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.alert-time {
+  color: #94a3b8;
+}
+
+.alert-status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.alert-status.active {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.alert-status.acknowledged {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.alert-status.resolved {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.contact-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.contact-relation {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.call-btn {
+  padding: 8px 16px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.call-btn:hover {
+  background: #059669;
+}
+
+.contact-phone {
+  font-size: 12px;
+  color: #64748b;
+  min-width: 120px;
+  text-align: right;
+}
+
+.protocols-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.protocols-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.protocols-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.protocol-card {
+  padding: 20px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.protocol-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.protocol-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.protocol-card li {
+  font-size: 13px;
+  color: #64748b;
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.protocol-card li:before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #14b8a6;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+@media (max-width: 1024px) {
+  .alerts-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
